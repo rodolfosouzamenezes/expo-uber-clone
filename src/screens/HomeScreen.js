@@ -7,7 +7,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
-      <View style={tw`p-5`}>
+      <View style={tw`p-5 pt-16`}>
         <Image
           style={{
             marginLeft: 8,
