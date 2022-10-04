@@ -52,7 +52,7 @@ const HomeScreen = () => {
           fetchDetails={true}
           returnKeyType={"search"}
           enablePoweredByContainer={false}
-          placeholder='Para onde?'
+          placeholder='Qual é o seu local de partida?'
           nearbyPlacesAPI='GooglePlacesSearch'
           debounce={400}
           minLength={2}
