@@ -1,4 +1,4 @@
-import { StatusBar } from 'react-native';
+import { StatusBar, KeyboardAvoidingView, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import HomeScreen from './src/screens/HomeScreen';
 import MapScreen from './src/screens/MapScreen';
@@ -14,29 +14,35 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen 
-              name='HomeScreen'
-              component={HomeScreen}
-              options={{
-                headerShown: false,
-              }}
+          <KeyboardAvoidingView
+            keyboardVerticalOffset={Platform.OS === 'ios' ? -64 : 0}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{ flex: 1 }}
+          >
+            <Stack.Navigator>
+              <Stack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name='MapScreen'
+                component={MapScreen}
+                options={{
+                  headerShown: false,
+                  animation: 'slide_from_right'
+                }}
+              />
+            </Stack.Navigator>
+            <StatusBar
+              barStyle="dark-content"
+              backgroundColor="transparent"
+              translucent
             />
-            <Stack.Screen 
-              name='MapScreen'
-              component={MapScreen}
-              options={{
-                headerShown: false,
-                animation: 'slide_from_right'
-              }}
-            />
-          </Stack.Navigator>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor="transparent"
-          translucent
-        />
       </NavigationContainer>
     </Provider>
   );
