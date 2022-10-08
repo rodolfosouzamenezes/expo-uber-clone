@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
-import { Icon } from '@rneui/base'
+import { Icon } from 'react-native-elements'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
