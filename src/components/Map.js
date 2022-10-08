@@ -1,12 +1,10 @@
-import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import MapView, { Marker } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 import tw from 'tailwind-react-native-classnames';
 import { useSelector } from 'react-redux';
 import { selectDestination, selectOrigin } from '../slices/navSlice';
-import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPS_API_KEY } from "@env";
-import { useRef } from 'react';
 
 const Map = () => {
   const origin = useSelector(selectOrigin);
@@ -18,7 +16,7 @@ const Map = () => {
 
     mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-    })
+    });
   }, [origin, destination]);
 
   return (
@@ -35,9 +33,9 @@ const Map = () => {
     >
       {origin && destination && (
         <MapViewDirections
+          apikey={GOOGLE_MAPS_API_KEY}
           origin={origin.description}
           destination={destination.description}
-          apikey={GOOGLE_MAPS_API_KEY}
           strokeWidth={3}
           strokeColor="black"
         />
@@ -46,29 +44,29 @@ const Map = () => {
 
       {origin?.location && (
         <Marker
-          title="Origem"
-          description={origin.description}
-          identifier={"origin"}
           coordinate={{
             latitude: origin.location.lat,
             longitude: origin.location.lng,
           }}
+          title="Origin"
+          description={origin.description}
+          identifier="origin"
         />
       )}
 
       {destination?.location && (
         <Marker
-          title="Destino"
-          description={destination.description}
-          identifier={"destination"}
           coordinate={{
             latitude: destination.location.lat,
             longitude: destination.location.lng,
           }}
+          title="Destination"
+          description={destination.description}
+          identifier="destination"
         />
       )}
     </MapView>
-  )
-}
+  );
+};
 
 export default Map
