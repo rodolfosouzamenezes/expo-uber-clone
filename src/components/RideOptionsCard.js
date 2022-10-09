@@ -6,6 +6,9 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { selectTravelTimeInformation } from '../slices/navSlice'
 
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
 const data = [
   {
     id: "Uber-X-123",
@@ -26,6 +29,8 @@ const data = [
     image: "https://links.papareact.com/7pf",
   },
 ];
+
+const SURGE_CHARGE_RATE = 1.5;
 
 const RideOptionsCard = () => {
   const navigation = useNavigation();
@@ -66,12 +71,20 @@ const RideOptionsCard = () => {
               <Text>{travelTimeInformation?.duration.text}Travel Time</Text>
             </View>
 
-            <Text style={tw`text-xl`}>R$ 88.90</Text>
+            <Text style={tw`text-xl`}>
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+              }).format(
+                (travelTimeInformation?.duration.value * SURGE_CHARGE_RATE * multiplier) / 100
+              )}
+
+            </Text>
           </TouchableOpacity>
         )}
       />
 
-      <View>
+      <View style={tw`mt-auto border-t border-gray-200`}>
         <TouchableOpacity disabled={!selectedCar} style={tw`bg-black py-3 m-3 ${!selectedCar && 'bg-gray-300'}`}>
           <Text style={tw`text-center text-white text-xl`}>
             Choose {selectedCar?.title}
